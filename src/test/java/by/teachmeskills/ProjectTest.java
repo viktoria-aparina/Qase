@@ -4,7 +4,7 @@ import by.teachmeskills.dto.Project;
 import by.teachmeskills.pages.AllProjectsPage;
 import by.teachmeskills.pages.NewProjectPage;
 import by.teachmeskills.pages.ProjectPage;
-import by.teachmeskills.providers.Providers;
+import by.teachmeskills.providers.ProjectProvider;
 import by.teachmeskills.steps.DeleteProjectSteps;
 import by.teachmeskills.steps.LoginSteps;
 import com.codeborne.selenide.SelenideElement;
@@ -30,7 +30,7 @@ public class ProjectTest {
         new AllProjectsPage().clickCreateNewProjectButton();
         assertTrue(new NewProjectPage().getTitle().isDisplayed());
 
-        Project project = new Providers().getProject();
+        Project project = new ProjectProvider().getProject();
         new NewProjectPage().createNewProject(project).submitForm();
 
         new ProjectPage().clickProjectsButton();

@@ -1,5 +1,6 @@
 package by.teachmeskills.pages;
 
+import by.teachmeskills.utils.PropertiesLoader;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.testng.ScreenShooter;
@@ -20,10 +21,10 @@ public class LoginPage {
     }
 
     public AllProjectsPage loginWithValidCredential() {
-        $(id("inputEmail")).sendKeys("victoria.aparina.s@yandex.ru");
-        $(id("inputPassword")).sendKeys("uku6v2tc");
+        $(id("inputEmail")).sendKeys(PropertiesLoader.loadProperties().getProperty("login"));
+        $(id("inputPassword")).sendKeys(PropertiesLoader.loadProperties().getProperty("password"));
         $(id("btnLogin")).click();
-        log.info("User was logined successfully");
+        log.info("User was logged in successfully");
         return new AllProjectsPage();
     }
 

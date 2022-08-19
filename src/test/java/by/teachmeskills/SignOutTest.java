@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertTrue;
 
-public class SighOutTest {
+public class SignOutTest {
 
     @BeforeMethod
     public void openAndLogin() {

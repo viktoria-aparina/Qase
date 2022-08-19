@@ -16,6 +16,8 @@ import static org.openqa.selenium.By.tagName;
 @Log4j2
 public class AllProjectsPage {
 
+    private final static String PART_OF_LOCATOR_FOR_PROJECT = "//a[text()='%s']//ancestor::tr[@class='project-row']//";
+
     public AllProjectsPage open() {
         Selenide.open("/projects");
         return new AllProjectsPage();
@@ -27,8 +29,8 @@ public class AllProjectsPage {
     }
 
     public AllProjectsPage deleteProject(String projectName) {
-        $x(String.format("//a[text()='%s']//ancestor::tr[@class='project-row']//a[contains(@class,'btn-dropdown')]", projectName)).click();
-        $x(String.format("//a[text()='%s']//ancestor::tr[@class='project-row']//a[text()='Delete']", projectName)).click();
+        $x(String.format(PART_OF_LOCATOR_FOR_PROJECT + "a[contains(@class,'btn-dropdown')]", projectName)).click();
+        $x(String.format(PART_OF_LOCATOR_FOR_PROJECT + "a[text()='Delete']", projectName)).click();
         $x("//button[contains(@class, 'btn-cancel')]").click();
         $(tagName("h1")).shouldBe(visible);
         log.info("The project was deleted");
@@ -45,11 +47,11 @@ public class AllProjectsPage {
     public boolean isProjectDelete(String name) {
 
         try {
-            SelenideElement projectName =$x(String.format("//a[text()='%s']//ancestor::tr[@class='project-row']", name));
-            return true;
-        } catch (NoSuchElementException exception) {
-            log.error("The project {} was not find, because of error {}", name, exception.getCause());
+            $x(String.format("//a[text()='%s']//ancestor::tr[@class='project-row']", name));
             return false;
+        } catch (NoSuchElementException exception) {
+            log.error("The project {} was not found, because of error {}", name, exception.getCause());
+            return true;
         }
     }
 }
